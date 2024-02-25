@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const passport = require('passport');
+const ExpressError = require('./utils/expressError');
 const LocalStrategy = require('passport-local');
+const Joi = require("joi")
 const userRoutes = require('./routes/userRoutes');
 const User = require("./model/userModel")
 const app = express();
@@ -57,7 +59,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(flash());
 
 app.use((req, res, next) => {
-  console.log(req.session);
+  
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -70,6 +72,18 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+
+app.all('*', (req, res, next) => {
+  next(new ExpressError('ページが見つかりませんでした', 404));
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) {
+      err.message = '問題が起きました'
+  }
+  res.status(statusCode).render('error', { err });
+});
 
 app.listen(5000, () => {
   console.log('ポート5000でリクエスト待受中...');
