@@ -1,0 +1,132 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="title text-center p-3">
+    <h1>
+      <%= trip.title %>
+    </h1>
+    <h3 class="text-secondary">
+      <%= trip.start %>〜<%= trip.finish %>
+    </h3>
+  </div>
+
+
+  <h2>スケジュール</h2>
+  <div class="border-bottom mb-3 width"></div>
+
+
+
+  <div>
+    <% plans.forEach(plan=> {%>
+      <div>
+
+
+        <h4>
+          <%= plan.time %>
+        </h4>
+
+
+
+
+      </div>
+
+      <div class="card bg-gray mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= plan.title %>
+          </h5>
+          <p class="card-text">
+            <%= plan.description %>
+          </p>
+
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">場所：<%= plan.location %>
+          </li>
+          <li class="list-group-item">費用：<%= plan.cost %>円
+          </li>
+          <li class="list-group-item">日付：<%= plan.date %>
+          </li>
+        </ul>
+      </div>
+
+      <%}); %>
+  </div>
+
+
+
+  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    data-bs-whatever="@mdo">追加する</button>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">スケジュール</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="plan/new" method="POST" class="validated-form" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="title">タイトル</label>
+              <input class="form-control" type="text" name="title" id="title">
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">場所</label>
+              <input type="text" class="form-control" name="location" id="location">
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description" aria-required="false">時間</label>
+              <input type="time" class="form-control" name="time" id="time" required>
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="price">価格</label>
+              <div class="input-group">
+                <span class="input-group-text" id="price-label">¥</span>
+                <input type="text" class="form-control" id="cost" placeholder="0" aria-label="価格"
+                  aria-describedby="price-label" name="cost">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="date" aria-required="false">日付</label>
+              <input class="form-control" type="text" name="date" id="js-datepicker" required>
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">説明</label>
+              <textarea class="form-control" type="text" name="description" id="description"></textarea>
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <!-- <div class="mb-3">
+              <label for="image" class="form-label">画像</label>
+              <input class="form-control" type="file" id="image" name="image" multiple>
+            </div> -->
+
+        </div>
+        <div class="modal-footer">
+          <div class="d-grid">
+            <button class="btn btn-success">登録する</button>
+          </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>

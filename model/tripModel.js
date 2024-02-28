@@ -6,7 +6,8 @@ const TripSchema = new mongoose.Schema({
     required: true,
 },
   description: String,
-  date:  String,
+  start:  String,
+  finish:  String,
   author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'

@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 
 const PlanSchema = new mongoose.Schema({
   title: String,
-  date: Number,
-  time: Number,
+  date: String,
+  time: String,
   location: String,
-  cost: Number,
+  description: String,
+  cost: String,
+  trip: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Trip'
+}
   
 });
 
