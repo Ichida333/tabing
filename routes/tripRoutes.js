@@ -3,9 +3,9 @@ const router = express.Router();
 const Trip = require("../model/tripModel")
 const Plan = require("../model/planModel")
 const { isLoggedIn } = require("../middleware")
-const multer = require('multer')
-const { storage } = require('../cloudinary/index');
-const upload = multer({ storage : storage})
+// const multer = require('multer')
+// const { storage } = require('../cloudinary/index');
+// const upload = multer({ storage : storage})
 
 
 router.get("/new", isLoggedIn,(req,res) =>{
@@ -26,7 +26,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
   }
   
     });
-    router.post("/:id/plan/new", upload.array('image'),isLoggedIn , async(req,res, next) =>{
+    router.post("/:id/plan/new", isLoggedIn , async(req,res, next) =>{
       try {
     
         const plan = new Plan(req.body)
