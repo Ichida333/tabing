@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate') %>
+  <div class="container">
+    <h1 class="mb-4">Blog Articles</h1>
+    <a href="/trip/new" class="btn btn-success">New Trip</a>
+
+    <% trips.forEach(trip=> { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="card-title">
+            <%= trip.title %>
+          </h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= trip.date %>
+          </div>
+          <div class="card-text mb-2">
+            <%= trip.description %>
+          </div>
+          <a href="/trip/<%= trip._id %>" class="btn btn-primary">Read More</a>
+          <a href="#" class="btn btn-info">Edit</a>
+          <form action="#" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% }) %>
+  </div>

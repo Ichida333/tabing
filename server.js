@@ -8,9 +8,11 @@ const ExpressError = require('./utils/expressError');
 const LocalStrategy = require('passport-local');
 const Joi = require("joi")
 const userRoutes = require('./routes/userRoutes');
+const tripRoutes = require("./routes/tripRoutes")
 const User = require("./model/userModel")
 const app = express();
 const flash = require("connect-flash")
+const flatpickr = require("flatpickr");
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
@@ -72,6 +74,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/trip', tripRoutes);
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('ページが見つかりませんでした', 404));
