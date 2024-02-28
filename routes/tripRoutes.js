@@ -26,7 +26,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
   }
   
     });
-    router.post("/:id/plan/new", isLoggedIn , async(req,res, next) =>{
+    router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
       try {
     
         const plan = new Plan(req.body)

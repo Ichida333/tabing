@@ -1,41 +1,53 @@
 <% layout('layouts/boilerplate') %>
+
   <div class="title text-center p-3">
     <h1>
       <%= trip.title %>
     </h1>
-    <h2 class="text-secondary">
+    <h3 class="text-secondary">
       <%= trip.start %>〜<%= trip.finish %>
-    </h2>
+    </h3>
   </div>
 
+
   <h2>スケジュール</h2>
-  <div class="border-bottom mb-3"></div>
-  <% plans.forEach(plan=> {%>
-    <h3>
-      <%= plan.date %>
-    </h3>
-
-    <%= plan.time %>
-      <%= plan.title %>
-        <%= plan.description %>
-
-
-          <% }) %>
+  <div class="border-bottom mb-3 width"></div>
 
 
 
+  <div>
+    <% plans.forEach(plan=> {%>
+      <div>
 
-            <div class="card bg-gray">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-              </ul>
 
-            </div>
+        <h4>
+          <%= plan.time %>
+        </h4>
+
+
+
+
+      </div>
+
+      <div class="card bg-gray mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= plan.title %>
+          </h5>
+          <p class="card-text">
+            <%= plan.description %>
+          </p>
+
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">場所：<%= plan.location %>
+          </li>
+          <li class="list-group-item">費用：<%= plan.cost %>円
+          </li>
+          <li class="list-group-item">日付：<%= plan.date %>
+          </li>
+        </ul>
+      </div>
+
+      <%}); %>
+  </div>
