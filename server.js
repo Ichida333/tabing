@@ -12,7 +12,7 @@ const tripRoutes = require("./routes/tripRoutes")
 const User = require("./model/userModel")
 const app = express();
 const flash = require("connect-flash")
-const flatpickr = require("flatpickr");
+
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
