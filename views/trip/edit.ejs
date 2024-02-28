@@ -1,16 +1,17 @@
 <% layout('layouts/boilerplate') %>
 
-  <div class="title text-center p-3">
-    <h1>
-      <%= trip.title %>
-    </h1>
-    <h2 class="text-secondary">
-      <%= trip.start %>〜<%= trip.finish %>
-    </h2>
-  </div>
+
+  <h1>
+    <%= trip.title %>
+  </h1>
+  <h4 class="text-secondary mb-2">
+    <%= trip.start %>〜<%= trip.finish %>
+  </h4>
+  <div class="border-bottom mb-5 width"></div>
 
 
-  <h2>スケジュール</h2>
+
+  <h3>スケジュール</h3>
   <div class="border-bottom mb-3 width"></div>
 
 

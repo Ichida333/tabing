@@ -18,7 +18,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
     trip.author = req.user._id
     await trip.save();
 
-    res.redirect(`${trip._id}`);
+    res.redirect(`/trip/${trip._id}/edit`);
   
   } catch (error) {
     req.flash("error", error.message)
