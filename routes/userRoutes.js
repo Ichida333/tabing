@@ -46,7 +46,7 @@ router.post('/signup', async (req, res, next) => {
       req.logout(function(err) {
         if (err) { return next(err); }
         req.flash("success", "ログアウトしました")
-        res.redirect('/');
+        res.redirect('login');
       });
     })
 

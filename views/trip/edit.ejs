@@ -1,12 +1,12 @@
 <% layout('layouts/boilerplate') %>
 
 
-  <h1>
+  <h1 class="fw-bold">
     <%= trip.title %>
   </h1>
-  <h4 class="text-secondary mb-2">
+  <h6 class="text-secondary mb-2">
     <%= trip.start %>〜<%= trip.finish %>
-  </h4>
+  </h6>
   <div class="border-bottom mb-5 width"></div>
 
 
@@ -32,9 +32,9 @@
 
       <div class="card bg-gray mb-3">
         <div class="card-body">
-          <h5 class="card-title">
+          <h4 class="card-title fw-bolder">
             <%= plan.title %>
-          </h5>
+          </h4>
           <p class="card-text">
             <%= plan.description %>
           </p>
