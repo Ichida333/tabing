@@ -10,8 +10,11 @@ const Joi = require("joi")
 const userRoutes = require('./routes/userRoutes');
 const tripRoutes = require("./routes/tripRoutes")
 const User = require("./model/userModel")
+const methodOverride = require('method-override');
 const app = express();
 const flash = require("connect-flash")
+const fileUpload = require('express-fileupload');
+const path = require('path');
 
 
 app.engine('ejs', ejsMate);
@@ -25,7 +28,16 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(methodOverride('_method'));
 
+app.use(
+  fileUpload({
+    useTempFiles: true
+  })
+);
+
+// 静的ファイルの提供 (アップロードされた画像の表示のため)
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 
 

@@ -3,9 +3,17 @@ const router = express.Router();
 const Trip = require("../model/tripModel")
 const Plan = require("../model/planModel")
 const { isLoggedIn } = require("../middleware")
-// const multer = require('multer')
-// const { storage } = require('../cloudinary/index');
-// const upload = multer({ storage : storage})
+
+const fileUpload = require("express-fileupload");
+
+
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: "dy4wgdkbz",
+  api_key: "252455962622921",
+  api_secret: "EqRLBa17eYMBYEtBgd3y4vEpKCU"
+});
 
 
 router.get("/new", isLoggedIn,(req,res) =>{
@@ -28,18 +36,84 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
     });
     router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
       try {
-    
+
+
+   
+        const uploadedFiles = req.files.image;
+        console.log(uploadedFiles)
+
         const plan = new Plan(req.body)
-        const trip = await Trip.findById(req.params.id);
+      const trip = await Trip.findById(req.params.id);
       plan.trip = trip._id
+      
+
+        if(uploadedFiles[1])
+        {
+                  // アップロードされた各ファイルをCloudinaryにアップロード
+            const uploadPromises = uploadedFiles.map((file) => {
+              return new Promise((resolve, reject) => {
+                cloudinary.uploader.upload(file.tempFilePath, (error, result) => {
+                  if (error) {
+                    reject(error);
+                  } else {
+                    resolve(result.secure_url);
+                  }
+                });
+              });
+            });
+
+            const uploadedImageUrls = await Promise.all(uploadPromises);
+            console.log(uploadedImageUrls)
+            for (let i = 0; i < uploadedImageUrls.length; i++) {
+              plan.images[i] = uploadedImageUrls[i]
+              
+            }
+
+        }
+
+        else
+        {
+     
+  
+
+        const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
+
+        console.log(result)
+
+        plan.images[0] = result.url
+      }
+      
+
+     
+
       await plan.save()
+      console.log(plan)
       res.redirect(`/trip/${trip._id}/edit`)
       } catch (error) {
+        console.error(error);
         req.flash("error", error.message)
         res.redirect(`/`)
       }
       
     })
+
+  
+
+  router.delete("/:id/plan/delete/:planID" , async(req,res)=>{
+    try {
+  
+ 
+      const id = req.params.planID
+      const trip = await Trip.findById(req.params.id);
+      await Plan.findByIdAndDelete(id)
+      res.redirect(`/trip/${trip._id}/edit`)
+    } catch (error) {
+      console.error(error);
+        req.flash("error", error.message)
+        res.redirect(`/`)
+    }
+ 
+  })
 
 
     router.get("/:id/edit",isLoggedIn ,async (req,res) =>{

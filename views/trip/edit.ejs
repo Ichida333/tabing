@@ -12,6 +12,7 @@
 
 
   <h3>スケジュール</h3>
+
   <div class="border-bottom mb-3 width"></div>
 
 
@@ -28,6 +29,7 @@
 
 
 
+
       </div>
 
       <div class="card bg-gray mb-3">
@@ -35,9 +37,14 @@
           <h4 class="card-title fw-bolder">
             <%= plan.title %>
           </h4>
-          <p class="card-text">
-            <%= plan.description %>
-          </p>
+          <% plan.images.forEach(image=> { %>
+            <img src="<%= image %>" alt="" class="img-thumbnail" width="200" height="200">
+            <% }); %>
+
+
+              <p class="card-text">
+                <%= plan.description %>
+              </p>
 
         </div>
         <ul class="list-group list-group-flush">
@@ -50,12 +57,23 @@
         </ul>
       </div>
 
+
+
+
+      <button type="button" class="btn btn-success d-inline">編集する</button>
+
+      <form action="plan/delete/<%= plan._id  %>?_method=DELETE" method="POST" class=" d-inline">
+        <button type="submit" class="btn btn-danger">削除する</button>
+      </form>
+
+
+
       <%}); %>
   </div>
 
 
 
-  <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+  <button type="button" class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
     data-bs-whatever="@mdo">追加する</button>
 
 
@@ -67,7 +85,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="plan/new" method="POST" class="validated-form" novalidate>
+          <form action="plan/new" method="POST" class="validated-form" enctype="multipart/form-data" 　 novalidate>
             <div class="mb-3">
               <label class="form-label" for="title">タイトル</label>
               <input class="form-control" type="text" name="title" id="title">
@@ -84,7 +102,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label" for="description" aria-required="false">時間</label>
-              <input type="time" class="form-control" name="time" id="time" required>
+              <input type="time" class="form-control" name="time" id="time">
               <div class="valid-feedback">
                 OK!
               </div>
@@ -114,10 +132,10 @@
                 OK!
               </div>
             </div>
-            <!-- <div class="mb-3">
+            <div class="mb-3">
               <label for="image" class="form-label">画像</label>
-              <input class="form-control" type="file" id="image" name="image" multiple>
-            </div> -->
+              <input class="form-control" type="file" id="image" name="image" 　accept="image/*" multiple>
+            </div>
 
         </div>
         <div class="modal-footer">

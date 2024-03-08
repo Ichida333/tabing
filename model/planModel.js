@@ -7,6 +7,7 @@ const PlanSchema = new mongoose.Schema({
   location: String,
   description: String,
   cost: String,
+  images: [String],
   trip: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Trip'
