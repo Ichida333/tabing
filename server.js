@@ -9,6 +9,7 @@ const LocalStrategy = require('passport-local');
 const Joi = require("joi")
 const userRoutes = require('./routes/userRoutes');
 const tripRoutes = require("./routes/tripRoutes")
+const planRoutes = require("./routes/planRoutes")
 const User = require("./model/userModel")
 const methodOverride = require('method-override');
 const app = express();
@@ -87,6 +88,7 @@ app.get('/', (req, res) => {
 
 app.use('/users', userRoutes);
 app.use('/trip', tripRoutes);
+app.use('/plan', planRoutes);
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('ページが見つかりませんでした', 404));

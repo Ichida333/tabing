@@ -60,7 +60,8 @@
 
 
 
-      <button type="button" class="btn btn-success d-inline">編集する</button>
+
+      <a href="/plan/<%= plan._id  %>/new" class="btn btn-info">編集する</a>
 
       <form action="plan/delete/<%= plan._id  %>?_method=DELETE" method="POST" class=" d-inline">
         <button type="submit" class="btn btn-danger">削除する</button>

@@ -5,15 +5,7 @@ const Plan = require("../model/planModel")
 const { isLoggedIn } = require("../middleware")
 
 const fileUpload = require("express-fileupload");
-
-
-const cloudinary = require('cloudinary').v2;
-
-cloudinary.config({
-  cloud_name: "dy4wgdkbz",
-  api_key: "252455962622921",
-  api_secret: "EqRLBa17eYMBYEtBgd3y4vEpKCU"
-});
+const { cloudinary } = require("../cloudinary")
 
 
 router.get("/new", isLoggedIn,(req,res) =>{
@@ -36,17 +28,11 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
     });
     router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
       try {
-
-
-   
         const uploadedFiles = req.files.image;
         console.log(uploadedFiles)
-
         const plan = new Plan(req.body)
-      const trip = await Trip.findById(req.params.id);
-      plan.trip = trip._id
-      
-
+        const trip = await Trip.findById(req.params.id);
+        plan.trip = trip._id
         if(uploadedFiles[1])
         {
                   // アップロードされた各ファイルをCloudinaryにアップロード
@@ -65,21 +51,13 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
             const uploadedImageUrls = await Promise.all(uploadPromises);
             console.log(uploadedImageUrls)
             for (let i = 0; i < uploadedImageUrls.length; i++) {
-              plan.images[i] = uploadedImageUrls[i]
-              
+              plan.images[i] = uploadedImageUrls[i]              
             }
-
         }
-
         else
         {
-     
-  
-
         const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
-
         console.log(result)
-
         plan.images[0] = result.url
       }
       
