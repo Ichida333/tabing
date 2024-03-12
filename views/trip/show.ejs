@@ -16,12 +16,17 @@
 
 
   <div>
-    <% plans.forEach(plan=> {%>
+
+
+
+
+    <% for (let i=0; i < plans.length; i++) { %>
       <div>
 
 
+
         <h4>
-          <%= plan.time %>
+          <%= plans[i].time %>
         </h4>
 
 
@@ -32,25 +37,24 @@
       <div class="card bg-gray mb-3">
         <div class="card-body">
           <h4 class="card-title fw-bolder">
-            <%= plan.title %>
+            <%= plans[i].title %>
           </h4>
-          <% plan.images.forEach(image=> { %>
+          <% plans[i].images.forEach(image=> { %>
             <img src="<%= image %>" alt="" class="img-fluid img-responsive" width="150" height="150">
             <% }); %>
               <p class="card-text">
-                <%= plan.description %>
+                <%= plans[i].description %>
               </p>
 
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">場所：<%= plan.location %>
+          <li class="list-group-item">場所：<%= plans[i].location %>
           </li>
-          <li class="list-group-item">費用：<%= plan.cost %>円
+          <li class="list-group-item">費用：<%= plans[i].cost %>円
           </li>
-          <li class="list-group-item">日付：<%= plan.date %>
-          </li>
+
         </ul>
       </div>
 
-      <%}); %>
+      <%} %>
   </div>

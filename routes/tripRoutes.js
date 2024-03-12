@@ -28,6 +28,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
     });
     router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
       try {
+      if(req.files.image){
         const uploadedFiles = req.files.image;
         console.log(uploadedFiles)
         const plan = new Plan(req.body)
@@ -54,11 +55,14 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
               plan.images[i] = uploadedImageUrls[i]              
             }
         }
-        else
+        else if(uploadedFiles[0])
         {
         const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
         console.log(result)
         plan.images[0] = result.url
+      }
+      else{
+
       }
       
 
@@ -67,7 +71,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
       await plan.save()
       console.log(plan)
       res.redirect(`/trip/${trip._id}/edit`)
-      } catch (error) {
+      }} catch (error) {
         console.error(error);
         req.flash("error", error.message)
         res.redirect(`/`)
