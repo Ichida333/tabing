@@ -34,9 +34,12 @@
           <h4 class="card-title fw-bolder">
             <%= plan.title %>
           </h4>
-          <p class="card-text">
-            <%= plan.description %>
-          </p>
+          <% plan.images.forEach(image=> { %>
+            <img src="<%= image %>" alt="" class="img-fluid img-responsive" width="150" height="150">
+            <% }); %>
+              <p class="card-text">
+                <%= plan.description %>
+              </p>
 
         </div>
         <ul class="list-group list-group-flush">
