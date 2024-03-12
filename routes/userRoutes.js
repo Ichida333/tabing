@@ -50,6 +50,25 @@ router.post('/signup', async (req, res, next) => {
       });
     })
 
+
+
+    router.get('/index',isLoggedIn, async (req, res) => {
+      try{
+
+      const users = await User.find();
+
+      res.render("users/index", { users })
+    
+      
+      } catch{
+
+      }
+    });
+
+    
+
+    
+
     router.get('/:id',isLoggedIn, async (req, res) => {
       try{
       const { id } = req.params;
@@ -58,7 +77,7 @@ router.post('/signup', async (req, res, next) => {
       const trips = await Trip.find({ author: user._id })
     
       if(user){
-        res.render('users/index', { user, trips });
+        res.render('users/show', { user, trips });
       }
       else{
         req.flash("error", error.message)

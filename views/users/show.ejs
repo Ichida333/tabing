@@ -1,0 +1,32 @@
+<% layout('layouts/boilerplate') %>
+  <div class="container">
+    <h1 class="mb-4">
+      <%= user.username %>の旅の記録
+    </h1>
+    <% if(user._id==currentUser.id){ %>
+      <a href="/trip/new" class="btn btn-success mb-3">New Trip</a>
+      <% } %>
+
+        <% trips.forEach(trip=> { %>
+          <div class="card mb-4">
+            <div class="card-body">
+              <h4 class="card-title">
+                <%= trip.title %>
+              </h4>
+              <div class="card-subtitle text-muted mb-2">
+                <%= trip.date %>
+              </div>
+              <div class="card-text mb-2">
+                <%= trip.description %>
+              </div>
+              <a href="/trip/<%= trip._id %>" class="btn btn-primary">Read More</a>
+              <% if(user._id==currentUser.id){ %>
+                <a href="/trip/<%= trip._id %>/edit" class="btn btn-info">Edit</a>
+
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <% } %>
+
+            </div>
+          </div>
+          <% }) %>
+  </div>

@@ -1,24 +1,26 @@
 <% layout('layouts/boilerplate') %>
   <div class="container">
-    <h1 class="mb-4">旅の記録</h1>
-    <a href="/trip/new" class="btn btn-success mb-3">New Trip</a>
+    <h1 class="mb-4">Users</h1>
 
-    <% trips.forEach(trip=> { %>
+
+    <% users.forEach(user=> { %>
       <div class="card mb-4">
         <div class="card-body">
-          <h4 class="card-title">
-            <%= trip.title %>
-          </h4>
-          <div class="card-subtitle text-muted mb-2">
-            <%= trip.date %>
-          </div>
-          <div class="card-text mb-2">
-            <%= trip.description %>
-          </div>
-          <a href="/trip/<%= trip._id %>" class="btn btn-primary">Read More</a>
-          <a href="/trip/<%= trip._id %>/edit" class="btn btn-info">Edit</a>
+          <h3 class="card-title">
+            <a href="/users/<%= user._id %>">
+              <%= user.username %>
+            </a>
 
-          <button type="submit" class="btn btn-danger">Delete</button>
+            </h4>
+            <div class="card-subtitle text-muted mb-2">
+
+            </div>
+            <div class="card-text mb-2">
+
+            </div>
+
+
+
 
         </div>
       </div>
