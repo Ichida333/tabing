@@ -28,50 +28,63 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
     });
     router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
       try {
-      if(req.files.image){
-        const uploadedFiles = req.files.image;
-        console.log(uploadedFiles)
+
+        
+
+      
+        
+        // console.log(uploadedFiles)
         const plan = new Plan(req.body)
         const trip = await Trip.findById(req.params.id);
         plan.trip = trip._id
+
+        if(req.file){
+          const uploadedFiles = req.files.image;
+
         if(uploadedFiles[1])
-        {
-                  // アップロードされた各ファイルをCloudinaryにアップロード
-            const uploadPromises = uploadedFiles.map((file) => {
-              return new Promise((resolve, reject) => {
-                cloudinary.uploader.upload(file.tempFilePath, (error, result) => {
-                  if (error) {
-                    reject(error);
-                  } else {
-                    resolve(result.secure_url);
-                  }
+          {
+            console.log(uploadedFiles)
+                    // アップロードされた各ファイルをCloudinaryにアップロード
+              const uploadPromises = uploadedFiles.map((file) => {
+                return new Promise((resolve, reject) => {
+                  cloudinary.uploader.upload(file.tempFilePath, (error, result) => {
+                    if (error) {
+                      reject(error);
+                    } else {
+                      resolve(result.secure_url);
+                    }
+                  });
                 });
               });
-            });
 
-            const uploadedImageUrls = await Promise.all(uploadPromises);
-            console.log(uploadedImageUrls)
-            for (let i = 0; i < uploadedImageUrls.length; i++) {
-              plan.images[i] = uploadedImageUrls[i]              
-            }
-        }
-        else if(uploadedFiles[0])
+              const uploadedImageUrls = await Promise.all(uploadPromises);
+              // console.log(uploadedImageUrls)
+              for (let i = 0; i < uploadedImageUrls.length; i++) {
+                plan.images[i] = uploadedImageUrls[i]              
+              }
+          }
+        else
         {
+          console.log(uploadedFiles)
         const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
-        console.log(result)
+        // console.log(result)
         plan.images[0] = result.url
-      }
-      else{
+        }
 
-      }
+        }else{}
+
+        
+    
+     
       
 
      
 
       await plan.save()
-      console.log(plan)
+      // console.log(plan)
+      req.flash('success', '作成しました');
       res.redirect(`/trip/${trip._id}/edit`)
-      }} catch (error) {
+      } catch (error) {
         console.error(error);
         req.flash("error", error.message)
         res.redirect(`/`)
@@ -88,6 +101,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
       const id = req.params.planID
       const trip = await Trip.findById(req.params.id);
       await Plan.findByIdAndDelete(id)
+      req.flash('success', '削除しました');
       res.redirect(`/trip/${trip._id}/edit`)
     } catch (error) {
       console.error(error);

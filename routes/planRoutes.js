@@ -19,9 +19,13 @@ router.get("/:id/new", isLoggedIn,async(req,res) =>{
 router.post("/:id/update", isLoggedIn, async(req,res) =>{
 
   try {
-    const uploadedFiles = req.files.image;
+  
     const { id } = req.params;
     const plan = await Plan.findByIdAndUpdate(id, { ...req.body });
+
+    if(req.files)
+    {
+      const uploadedFiles = req.files.image;
 
     if(uploadedFiles[1])
     {
@@ -49,6 +53,10 @@ router.post("/:id/update", isLoggedIn, async(req,res) =>{
     plan.images.push(result.url)
   }
 
+
+    }
+
+    
 
 
     await plan.save()
