@@ -43,13 +43,13 @@ router.post("/:id/update", isLoggedIn, async(req,res) =>{
         });
 
         const uploadedImageUrls = await Promise.all(uploadPromises);
-        console.log(uploadedImageUrls)
+       
         plan.images.push(...uploadedImageUrls);
     }
     else
     {
     const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
-    console.log(result)
+
     plan.images.push(result.url)
   }
 
