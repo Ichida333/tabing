@@ -27,19 +27,15 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
   
     });
     router.post("/:id/plan/new",isLoggedIn , async(req,res, next) =>{
-      try {
-
-        
-
-      
-        
-        // console.log(uploadedFiles)
+      try {    
         const plan = new Plan(req.body)
         const trip = await Trip.findById(req.params.id);
         plan.trip = trip._id
+       
 
-        if(req.file){
+        if(req.files){
           const uploadedFiles = req.files.image;
+          console.log(uploadedFiles)
 
         if(uploadedFiles[1])
           {
@@ -67,11 +63,12 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
         {
           console.log(uploadedFiles)
         const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
-        // console.log(result)
+        console.log(aaaaaaa)
+         console.log(result)
         plan.images[0] = result.url
         }
 
-        }else{}
+        }
 
         
     
