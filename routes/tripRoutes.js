@@ -63,7 +63,7 @@ router.post('/new', isLoggedIn,async (req, res, next) => {
         {
           console.log(uploadedFiles)
         const result = await cloudinary.uploader.upload(uploadedFiles.tempFilePath);
-        console.log(aaaaaaa)
+   
          console.log(result)
         plan.images[0] = result.url
         }

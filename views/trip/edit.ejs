@@ -33,27 +33,27 @@
                 <h4 class="card-title fw-bolder">
                   <%= plan.title %>
                 </h4>
-                <div class>
-                  <div id="carouselExample" class="carousel slide">
-                    <div class="carousel-inner">
-                      <% plan.images.forEach((image, i)=> { %>
-                        <div class="carousel-item <%= i === 0 ? 'active' : "" %>">
-                          <img src="<%= image %>" src="..." class="d-block " width="450" height="450" alt="...">
-                        </div>
-                        <% }); %>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                      data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                      data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
+
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <% plan.images.forEach((image, i)=> { %>
+                      <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                        <img src="<%= image %>" src="..." class="d-block img-fluid" width="450" height="450" alt="...">
+                      </div>
+                      <% }); %>
                   </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
+
                 <p class="card-text">
                   <%= plan.description %>
                 </p>
