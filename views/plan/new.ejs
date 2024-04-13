@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <div class="card shadow">
+          <img
+            src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+            alt="" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">編集</h5>
+            <form action="/plan/<%= plan._id  %>/update" method="POST" class="validated-form"
+              enctype="multipart/form-data" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="title">タイトル</label>
+                <input class="form-control" type="text" name="title" id="title" value="<%= plan.title  %>">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="description">場所</label>
+                <input type="text" class="form-control" name="location" id="location" value="<%= plan.location %>">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="description" aria-required="false">時間</label>
+                <input type="time" class="form-control" name="time" id="time" value="<%= plan.time  %>">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="price">価格</label>
+                <div class="input-group">
+                  <span class="input-group-text" id="price-label">¥</span>
+                  <input type="text" class="form-control" id="cost" placeholder="0" aria-label="価格"
+                    aria-describedby="price-label" name="cost" value="<%= plan.cost  %>">
+                  <div class="valid-feedback">
+                    OK!
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="date" aria-required="false">日付</label>
+                <input class="form-control" type="text" name="date" id="js-datepicker" value="<%= plan.date  %>">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="description">説明</label>
+                <textarea class="form-control" type="text" name="description" id="description"
+                  value="<%= plan.description %>"></textarea>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">画像の追加</label>
+                <input class="form-control" type="file" id="image" name="image" accept="image/*" multiple>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-success">登録する</button>
+              </div>
+
+          </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

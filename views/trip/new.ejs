@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <div class="card shadow">
+          <img
+            src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+            alt="" class="card-img-top" />
+
+          <div class="card-body">
+            <h5 class="card-title">旅を記録する</h5>
+            <form action="new" method="POST" class="validated-form" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="title">タイトル</label>
+                <input class="form-control" type="text" name="title" id="title" autofocus required>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="description">説明</label>
+                <textarea class="form-control" name="description" id="description" required></textarea>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="start">From</label>
+                <input class="form-control" type="text" name="start" id="js-datepicker" required>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="finish">Until</label>
+                <input class="form-control" type="text" name="finish" id="js-datepicker" required>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="shared">共有する人</label>
+                <input class="form-control" type="text" name="shared" id="title" autofocus required>
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+
+
+              <div class="d-grid">
+                <button class="btn btn-success">登録する</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

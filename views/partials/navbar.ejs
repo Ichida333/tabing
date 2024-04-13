@@ -1,0 +1,32 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-info">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">たびんぐ</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+
+
+      </div>
+      <div class="navbar-nav ms-auto">
+
+        <% if(!currentUser) { %>
+
+          <a href="/users/login" class="nav-link">ログイン</a>
+          <a href="/users/signup" class="nav-link">ユーザー登録</a>
+          <% } else { %>
+
+            <a href="/users/<%= currentUser._id %>" class="nav-link">
+              自分の
+            </a>
+            <a href="/users/<%= currentUser._id %>/share" class="nav-link">共有してるの</a>
+            <a href="/users/index" class="nav-link">ユーザー一覧</a>
+            <a href="/users/logout" class="nav-link">ログアウト</a>
+            <% } %>
+
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,174 @@
+<% layout('layouts/boilerplate') %>
+
+
+  <h1 class="fw-bold">
+    <%= trip.title %>
+  </h1>
+  <h6 class="text-secondary mb-2">
+    <%= trip.start %>〜<%= trip.finish %>
+  </h6>
+  <div class="border-bottom mb-5 width"></div>
+
+
+
+  <h3>スケジュール</h3>
+
+  <div class="border-bottom mb-3 width"></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+
+
+        <div>
+          <% plans.forEach(plan=> {%>
+            <div>
+              <h4 class="mt-3">
+                <%= plan.time %>
+              </h4>
+            </div>
+
+            <div class="card bg-gray mb-3">
+              <div class="card-body">
+                <h4 class="card-title fw-bolder">
+                  <%= plan.title %>
+                </h4>
+
+                <div id="<%=plan.title %>" class="carousel slide" data-bs-ride="carousel" data-bs-interval="0">
+
+                  <div class="carousel-inner">
+                    <% plan.images.forEach((image, i)=> { %>
+
+                      <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                        <img src="<%= image %>" src="..." class="d-block img-fluid" width="450" height="450" alt="...">
+
+                      </div>
+                      <% }); %>
+
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#<%=plan.title %>"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#<%=plan.title %>"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+
+                </div>
+
+
+                <p class="card-text">
+                  <%= plan.description %>
+                </p>
+
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">場所：<%= plan.location %>
+                </li>
+                <li class="list-group-item">費用：<%= plan.cost %>円
+                </li>
+                <li class="list-group-item">日付：<%= plan.date %>
+                </li>
+              </ul>
+            </div>
+
+
+
+
+
+            <a href="/plan/<%= plan._id  %>/new" class="btn btn-info">編集する</a>
+
+            <form action="plan/delete/<%= plan._id  %>?_method=DELETE" method="POST" class=" d-inline">
+              <button type="submit" class="btn btn-danger">削除する</button>
+            </form>
+
+
+
+            <%}); %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <button type="button" class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    data-bs-whatever="@mdo">追加する</button>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">スケジュール</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="plan/new" method="POST" class="validated-form" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="title">タイトル</label>
+              <input class="form-control" type="text" name="title" id="title">
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">場所</label>
+              <input type="text" class="form-control" name="location" id="location">
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description" aria-required="false">時間</label>
+              <input type="time" class="form-control" name="time" id="time">
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="price">価格</label>
+              <div class="input-group">
+                <span class="input-group-text" id="price-label">¥</span>
+                <input type="text" class="form-control" id="cost" placeholder="0" aria-label="価格"
+                  aria-describedby="price-label" name="cost">
+                <div class="valid-feedback">
+                  OK!
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="date" aria-required="false">日付</label>
+              <input class="form-control" type="text" name="date" id="js-datepicker" required>
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">説明</label>
+              <textarea class="form-control" type="text" name="description" id="description"></textarea>
+              <div class="valid-feedback">
+                OK!
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">画像</label>
+              <input class="form-control" type="file" id="image" name="image" accept="image/*" multiple>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="d-grid">
+            <button class="btn btn-success">登録する</button>
+          </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>

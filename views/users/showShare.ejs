@@ -1,0 +1,32 @@
+<% layout('layouts/boilerplate') %>
+  <div class="container">
+    <h1 class="mb-4">
+      共有してるやつ
+    </h1>
+
+
+
+
+    <% for (let i=trips.length - 1; i>= 0; i--){ %>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">
+            <%= trips[i].title %>
+          </h4>
+          <div class="card-subtitle text-muted mb-2">
+            <%= trips[i].date %>
+          </div>
+          <div class="card-text mb-2">
+            <%= trips[i].description %>
+          </div>
+          <a href="/trip/<%= trips[i]._id %>" class="btn btn-primary">Read More</a>
+          <% if(user._id==currentUser.id){ %>
+            <a href="/trip/<%= trips[i]._id %>/edit" class="btn btn-info">Edit</a>
+
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <% } %>
+
+        </div>
+      </div>
+      <% } %>
+  </div>
